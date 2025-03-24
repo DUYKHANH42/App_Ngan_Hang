@@ -46,7 +46,7 @@
     <Compile Include="Account.cs" />
     <Compile Include="Bank.cs" />
     <Compile Include="IBank.cs" />
-    <Compile Include="MaGiaoDich.cs" />
+    <Compile Include="GiaoDich.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

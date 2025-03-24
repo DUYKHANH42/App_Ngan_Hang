@@ -2,7 +2,7 @@
 
 namespace App_Ngan_hang
 {
-    public class MaGiaoDich
+    public class GiaoDich
     {
         public enum LoaiGiaoDich
         {
@@ -16,10 +16,10 @@ namespace App_Ngan_hang
         private decimal soTien;
         private int soTaiKhoangui;
         private int? soTaikhoannhan;
-        public MaGiaoDich()
+        public GiaoDich()
         {
         }
-        public MaGiaoDich(string maGiaoDich, DateTime ngayGiaoDich, LoaiGiaoDich loaiGiaoDich, decimal soTien, int soTaiKhoangui, int? soTaikhoannhan)
+        public GiaoDich(string maGiaoDich, DateTime ngayGiaoDich, LoaiGiaoDich loaiGiaoDich, decimal soTien, int soTaiKhoangui, int? soTaikhoannhan)
         {
             this.maGiaoDich = maGiaoDich;
             this.ngayGiaoDich = ngayGiaoDich;

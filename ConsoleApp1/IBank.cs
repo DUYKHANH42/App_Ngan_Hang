@@ -7,7 +7,7 @@
         void NapTien();
         void ChuyenTien();
         void RutTien();
-        void DoiMatKhau();
+        void DoiMatKhau(string makhaumoi);
         void HienThiLichSuGiaoDich();
         void HienThiThongTin();
 

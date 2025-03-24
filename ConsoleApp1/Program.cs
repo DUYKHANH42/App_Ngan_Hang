@@ -20,7 +20,8 @@ namespace App_Ngan_hang
                 Console.WriteLine("6. Hiển Thị Tài Khoản");
                 Console.WriteLine("7. Hiển Thị Lịch Sử Giao Dịch");
                 Console.WriteLine("8. Đăng Xuất");
-                Console.WriteLine("9. Thoát");
+                Console.WriteLine("9. Đổi Mật Khẩu");
+                Console.WriteLine("10. Thoát");
                 Console.Write("Vui Lòng Chọn: ");
                 choice = int.Parse(Console.ReadLine());
                 switch (choice)
@@ -50,13 +51,16 @@ namespace App_Ngan_hang
                         bank.DangXuat();
                         break;
                     case 9:
+                        bank.DoiMatKhau("");
+                        break;
+                    case 10:
                         Console.WriteLine("Cảm ơn bạn đã sử dụng dịch vụ của chúng tôi");
                         break;
                     default:
                         Console.WriteLine("Chọn sai, vui lòng chọn lại");
                         break;
                 }
-            } while (choice != 9);
+            } while (choice != 10);
 
             Console.ReadLine();
         }

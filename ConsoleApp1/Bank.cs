@@ -1,20 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using static App_Ngan_hang.MaGiaoDich;
+using System.Security.AccessControl;
+using static App_Ngan_hang.GiaoDich;
 
 namespace App_Ngan_hang
 {
     public class Bank : IBank
     {
-        private List<MaGiaoDich> dsMaGiaoDich = new List<MaGiaoDich>();
+        private List<GiaoDich> dsMaGiaoDich = new List<GiaoDich>();
         private Account accounthientai;
         private List<Account> listAccCount = new List<Account>();
 
-        public Bank()
-        {
-            listAccCount = new List<Account>();
-        }
+        
         public void DuLieu()
         {
 
@@ -288,7 +286,7 @@ namespace App_Ngan_hang
                     string maGD = TaoMaGiaoDich();
 
                     // ✅ Tạo đối tượng giao dịch mới
-                    MaGiaoDich giaoDichMoi = new MaGiaoDich(
+                    GiaoDich giaoDichMoi = new GiaoDich(
                         maGD,
                         DateTime.Now,
                         LoaiGiaoDich.NapTien, // ✅ Sử dụng enum đúng cách
@@ -304,7 +302,7 @@ namespace App_Ngan_hang
                     // ✅ Kiểm tra danh sách đã được khởi tạo chưa
                     if (dsMaGiaoDich == null)
                     {
-                        dsMaGiaoDich = new List<MaGiaoDich>();
+                        dsMaGiaoDich = new List<GiaoDich>();
                     }
 
                     // ✅ Thêm giao dịch vào danh sách
@@ -348,8 +346,17 @@ namespace App_Ngan_hang
                 return;
             }
 
-            // Tìm tài khoản người nhận
-            Account nguoinhan = listAccCount.FirstOrDefault(acc => acc.Stk == stknhan);
+            // Tìm tài khoản người nhậnAccount nguoinhan = null;
+            Account nguoinhan = null;
+            for (int i = 0; i < listAccCount.Count; i++)
+            {
+                if (listAccCount[i].Stk == stknhan)
+                {
+                    nguoinhan = listAccCount[i];
+                    break;
+                }
+            }
+
 
             if (nguoinhan == null)
             {
@@ -371,7 +378,7 @@ namespace App_Ngan_hang
             string maGD = TaoMaGiaoDich();
 
             // ✅ Tạo đối tượng giao dịch mới
-            MaGiaoDich giaoDichMoi = new MaGiaoDich(
+            GiaoDich giaoDichMoi = new GiaoDich(
                 maGD,
                 DateTime.Now,
                 LoaiGiaoDich.ChuyenTien, // ✅ Loại giao dịch là Chuyển Tiền
@@ -383,7 +390,7 @@ namespace App_Ngan_hang
             // ✅ Đảm bảo danh sách giao dịch không bị null
             if (dsMaGiaoDich == null)
             {
-                dsMaGiaoDich = new List<MaGiaoDich>();
+                dsMaGiaoDich = new List<GiaoDich>();
             }
 
             // ✅ Lưu giao dịch vào danh sách
@@ -408,7 +415,7 @@ namespace App_Ngan_hang
             }
 
             // Lọc danh sách giao dịch liên quan đến tài khoản đăng nhập
-            List<MaGiaoDich> lichSuCuaToi = new List<MaGiaoDich>();
+            List<GiaoDich> lichSuCuaToi = new List<GiaoDich>();
 
             foreach (var gd in dsMaGiaoDich)
             {
@@ -425,7 +432,7 @@ namespace App_Ngan_hang
             }
 
             Console.WriteLine("📜 Lịch sử giao dịch của bạn:");
-            foreach (MaGiaoDich gd in lichSuCuaToi)
+            foreach (GiaoDich gd in lichSuCuaToi)
             {
                 string nguoiNhan = (gd.SoTaikhoannhan != null && gd.SoTaikhoannhan != 0)
                     ? $"→ STK: {gd.SoTaikhoannhan}"
@@ -464,7 +471,7 @@ namespace App_Ngan_hang
             string maGD = TaoMaGiaoDich();
 
             // ✅ Tạo đối tượng giao dịch mới
-            MaGiaoDich giaoDichMoi = new MaGiaoDich(
+            GiaoDich giaoDichMoi = new GiaoDich(
                 maGD,
                 DateTime.Now,
                 LoaiGiaoDich.RutTien, // ✅ Loại giao dịch là Rút Tiền
@@ -476,7 +483,7 @@ namespace App_Ngan_hang
             // ✅ Đảm bảo danh sách giao dịch không bị null
             if (dsMaGiaoDich == null)
             {
-                dsMaGiaoDich = new List<MaGiaoDich>();
+                dsMaGiaoDich = new List<GiaoDich>();
             }
 
             // ✅ Lưu giao dịch vào danh sách
@@ -489,7 +496,7 @@ namespace App_Ngan_hang
             HienThiThongTin();
         }
 
-        public void DoiMatKhau()
+        public void DoiMatKhau(string makhaumoi)
         {
             if (accounthientai == null)
             {
@@ -507,26 +514,26 @@ namespace App_Ngan_hang
             }
 
             Console.Write("🔹 Nhập mật khẩu mới: ");
-            string matKhauMoi = Console.ReadLine();
+            makhaumoi = Console.ReadLine();
 
             Console.Write("🔹 Xác nhận mật khẩu mới: ");
             string xacNhanMatKhau = Console.ReadLine();
 
-            if (matKhauMoi != xacNhanMatKhau)
+            if (makhaumoi != xacNhanMatKhau)
             {
                 Console.WriteLine("❌ Mật khẩu xác nhận không khớp!");
                 return;
             }
 
             // Cập nhật mật khẩu mới
-            accounthientai.Password = matKhauMoi;
+            accounthientai.Password = makhaumoi;
 
             // Cập nhật danh sách tài khoản
             for (int i = 0; i < listAccCount.Count; i++)
             {
                 if (listAccCount[i].Sdt == accounthientai.Sdt)
                 {
-                    listAccCount[i].Password = matKhauMoi;
+                    listAccCount[i].Password = makhaumoi;
                     break;
                 }
             }
