@@ -246,16 +246,28 @@ namespace App_Ngan_hang
 
             do
             {
-                maGiaoDich = new string(Enumerable.Repeat(chars, 6)
-                                .Select(s => s[random.Next(s.Length)]).ToArray());
-
-                // Kiểm tra mã có trùng không
-                trungLap = dsMaGiaoDich.Any(gd => gd.Ma_Giao_Dich == maGiaoDich);
+                // Tạo mã giao dịch ngẫu nhiên (6 ký tự)
+                char[] Array = new char[6];
+                for (int i = 0; i < 6; i++)
+                {
+                    Array[i] = chars[random.Next(chars.Length)];
+                }
+                maGiaoDich = new string(Array);
+                trungLap = false;
+                foreach (var gd in dsMaGiaoDich)
+                {
+                    if (gd.Ma_Giao_Dich == maGiaoDich)
+                    {
+                        trungLap = true;
+                        break; // Dừng vòng lặp ngay khi phát hiện trùng
+                    }
+                }
             }
             while (trungLap); // Nếu trùng thì tạo lại
 
             return maGiaoDich;
         }
+
 
         public void NapTien()
         {
