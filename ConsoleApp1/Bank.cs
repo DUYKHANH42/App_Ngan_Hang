@@ -226,17 +226,25 @@ namespace App_Ngan_hang
         }
         public void HienThiThongTin()
         {
-            Console.WriteLine("=================================================================================================");
-            Console.WriteLine("| STK        | Họ và Tên              | Số dư      | Email                   | SĐT         | Mật khẩu     |");
-            Console.WriteLine("=================================================================================================");
+            Console.WriteLine("============================================================================================================");
+            Console.WriteLine("| {0,-10}  {1,-22}  {2,-16}  {3,-24}  {4,-12}  {5,-12} ",
+                              "STK", "Họ và Tên", "Số dư", "Email", "SĐT", "Mật khẩu");
+            Console.WriteLine("============================================================================================================");
 
             foreach (var acc in listAccCount)
             {
-                Console.WriteLine($"| {acc.Stk,-10} | {acc.HoTen,-22} | {acc.Sodu,-10} | {acc.Email,-24} | {acc.Sdt,-10} | {acc.Password,-12} |");
+                Console.WriteLine("  {0,-10}  {1,-22}   {2,-16}   {3,-24}   {4,-12}   {5,-12}  ",
+                                  acc.Stk,
+                                  acc.HoTen,
+                                  acc.Sodu.ToString("#,##0 VND"),
+                                  acc.Email,
+                                  acc.Sdt,
+                                  acc.Password);
             }
 
-            Console.WriteLine("=================================================================================================");
+            Console.WriteLine("============================================================================================================");
         }
+
         public string TaoMaGiaoDich()
         {
             Random random = new Random();
@@ -291,7 +299,7 @@ namespace App_Ngan_hang
             {
                 if (acc.Sdt == accounthientai.Sdt)
                 {
-                    acc.Sodu += tienNap;
+                     acc.Sodu += tienNap;
 
 
                     // ✅ Gọi hàm tạo mã giao dịch
