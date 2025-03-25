@@ -188,6 +188,11 @@ namespace App_Ngan_hang
 
         public Account DangNhap()
         {
+            if(accounthientai != null)
+            {
+                Console.WriteLine("❌ Vui Lòng Đăng Xuất Tài Khoản Cũ Để Đăng Nhập Tài Khoản Mới!");
+                return accounthientai;
+            }
             Console.Write("Nhập số điện thoại: ");
             string sdt = Console.ReadLine();
             Console.Write("Nhập mật khẩu: ");
@@ -226,14 +231,14 @@ namespace App_Ngan_hang
         }
         public void HienThiThongTin()
         {
-            Console.WriteLine("============================================================================================================");
-            Console.WriteLine("| {0,-10}  {1,-22}  {2,-16}  {3,-24}  {4,-12}  {5,-12} ",
+            Console.WriteLine("===============================================================================================================");
+            Console.WriteLine("| {0,-10}  {1,-22}  {2,-16}  {3,-30}  {4,-12}  {5,-12} ",
                               "STK", "Họ và Tên", "Số dư", "Email", "SĐT", "Mật khẩu");
-            Console.WriteLine("============================================================================================================");
+            Console.WriteLine("===============================================================================================================");
 
             foreach (var acc in listAccCount)
             {
-                Console.WriteLine("  {0,-10}  {1,-22}   {2,-16}   {3,-24}   {4,-12}   {5,-12}  ",
+                Console.WriteLine("  {0,-10}  {1,-22}   {2,-16}   {3,-30}   {4,-12}   {5,-12}  ",
                                   acc.Stk,
                                   acc.HoTen,
                                   acc.Sodu.ToString("#,##0 VND"),
@@ -242,7 +247,7 @@ namespace App_Ngan_hang
                                   acc.Password);
             }
 
-            Console.WriteLine("============================================================================================================");
+            Console.WriteLine("===============================================================================================================");
         }
 
         public string TaoMaGiaoDich()

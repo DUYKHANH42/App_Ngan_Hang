@@ -10,6 +10,7 @@
         void DoiMatKhau(string makhaumoi);
         void HienThiLichSuGiaoDich();
         void HienThiThongTin();
+        void DangXuat();
 
     }
 }
