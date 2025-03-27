@@ -24,7 +24,8 @@ namespace App_Ngan_hang
                 Stk = 99233322,
                 Email = "kxtduykhanh@gmail.com",
                 Sodu = 1000000,
-                Password = "123"
+                Password = "123",
+                Mapin = 1234
             });
             listAccCount.Add(new Account
             {
@@ -34,9 +35,15 @@ namespace App_Ngan_hang
                 Stk = 993699248,
                 Email = "dangtienhoang@gmail.com",
                 Sodu = 10000000,
-                Password = "456"
+                Password = "456",
+                Mapin = 4567
             });
         }
+        //public void Clear()
+        //{
+        //    Console.Clear();
+        //    HienThiThongTin();
+        //}
         string TaoSoTaiKhoanNgauNhien()
         {
             Random random = new Random();
@@ -69,7 +76,7 @@ namespace App_Ngan_hang
 
         public bool KiemTraNeuNhapSai(Account account)
         {
-
+            
 
             for (int i = 0; i < listAccCount.Count; i++)
             {
@@ -186,6 +193,7 @@ namespace App_Ngan_hang
             return true; // Hợp lệ
         }
 
+
         public Account DangNhap()
         {
             if(accounthientai != null)
@@ -247,9 +255,32 @@ namespace App_Ngan_hang
                                   acc.Password);
             }
 
-            Console.WriteLine("===============================================================================================================");
+            Console.WriteLine("=====================================================================================================================================");
         }
 
+        
+        public void HienThiThongTinTaiKhoanDangDangNhap()
+        {
+            if(accounthientai == null)
+            {
+                Console.WriteLine("❌ Bạn chưa đăng nhập!");
+                return;
+            }
+            Console.WriteLine("=====================================================================================================================================");
+            Console.WriteLine("| {0,-10}  {1,-22}  {2,-16}  {3,-30}  {4,-12}  {5,-12} {6,-15}",
+                              "STK", "Họ và Tên", "Số dư", "Email", "SĐT", "Mật khẩu", "CCCD");
+            Console.WriteLine("=====================================================================================================================================");
+            Console.WriteLine("  {0,-10}  {1,-22}   {2,-16}   {3,-30}   {4,-12}   {5,-12} {6,-15} ",
+                                  accounthientai.Stk,
+                                  accounthientai.HoTen,
+                                  accounthientai.Sodu.ToString("#,##0 VND"),
+                                  accounthientai.Email,
+                                  accounthientai.Sdt,
+                                  accounthientai.Password,
+                                    accounthientai.Cmnd);
+
+
+        }
         public string TaoMaGiaoDich()
         {
             Random random = new Random();
@@ -281,7 +312,20 @@ namespace App_Ngan_hang
             return maGiaoDich;
         }
 
-
+       public bool Nhapmapin(int mapin)
+        {
+            Console.WriteLine("Nhập mã pin: ");
+            if (!int.TryParse(Console.ReadLine(), out int mapinNhap) || mapinNhap <= 0)
+            {
+                Console.WriteLine("❌ Mã pin không hợp lệ! Vui lòng nhập lại.");
+                return false;
+            }
+            if (accounthientai.Mapin == mapin)
+            {
+                return true;
+            }
+            return false;
+        }
         public void NapTien()
         {
             if (accounthientai == null)
@@ -297,6 +341,7 @@ namespace App_Ngan_hang
                 return;
             }
 
+            Nhapmapin(accounthientai.Mapin);
             bool kiemTra = false;
 
             // Cập nhật số dư
@@ -344,7 +389,7 @@ namespace App_Ngan_hang
             }
 
             // Hiển thị thông tin cập nhật
-            HienThiThongTin();
+            HienThiThongTinTaiKhoanDangDangNhap();
         }
 
 
@@ -428,7 +473,7 @@ namespace App_Ngan_hang
             Console.WriteLine($"🔹 Mã giao dịch của bạn: {maGD}"); // ✅ Hiển thị mã giao dịch ngay lập tức
 
             // Hiển thị lại thông tin tài khoản
-            HienThiThongTin();
+            HienThiThongTinTaiKhoanDangDangNhap();
         }
 
         public void HienThiLichSuGiaoDich()
@@ -518,7 +563,7 @@ namespace App_Ngan_hang
             Console.WriteLine($"🔹 Mã giao dịch của bạn: {maGD}"); // ✅ Hiển thị mã giao dịch ngay lập tức
 
             // Hiển thị lại thông tin tài khoản
-            HienThiThongTin();
+            HienThiThongTinTaiKhoanDangDangNhap();
         }
 
         public void DoiMatKhau(string makhaumoi)

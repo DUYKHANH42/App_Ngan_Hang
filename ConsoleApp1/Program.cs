@@ -11,19 +11,19 @@ namespace App_Ngan_hang
             int choice;
             do
             {
-                Console.WriteLine("Ngân Hàng DuyKhanh Bank");
+                Console.WriteLine("Ngân Hàng VietComBank");
                 Console.WriteLine("1. Đăng Ký Tài Khoản");
                 Console.WriteLine("2. Đăng Nhập");
                 Console.WriteLine("3. Nạp Tiền");
                 Console.WriteLine("4. Rút Tiền");
                 Console.WriteLine("5. Chuyển Tiền");
-                Console.WriteLine("6. Hiển Thị Tài Khoản");
+                Console.WriteLine("6. Hiển Thị Tài Khoản Của Bạn");
                 Console.WriteLine("7. Hiển Thị Lịch Sử Giao Dịch");
                 Console.WriteLine("8. Đăng Xuất");
                 Console.WriteLine("9. Đổi Mật Khẩu");
                 Console.WriteLine("10. Thoát");
                 Console.Write("Vui Lòng Chọn: ");
-                choice = int.Parse(Console.ReadLine());
+                choice=int.TryParse(Console.ReadLine(), out choice) ? choice : 0;
                 switch (choice)
                 {
                     case 1:
@@ -42,7 +42,7 @@ namespace App_Ngan_hang
                         bank.ChuyenTien();
                         break;
                     case 6:
-                        bank.HienThiThongTin();
+                        bank.HienThiThongTinTaiKhoanDangDangNhap();
                         break;
                     case 7:
                         bank.HienThiLichSuGiaoDich();

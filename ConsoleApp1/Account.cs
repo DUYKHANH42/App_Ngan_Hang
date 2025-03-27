@@ -15,10 +15,11 @@ namespace App_Ngan_hang
         private decimal sodu;
         private string email;
         private string password;
+        private int mapin;
         public Account()
         {
         }
-        public Account(int stk,string sdt, string cmnd, string ten, decimal sodu, string email,string password)
+        public Account(int stk,string sdt, string cmnd, string ten, decimal sodu, string email,string password, int mapin)
         {
             this.stk = stk;
             this.sdt = sdt;
@@ -27,8 +28,9 @@ namespace App_Ngan_hang
             this.sodu = sodu;
             this.email = email;
             this.password = password;
-
+            this.mapin = mapin;
         }
+     
         public int Stk
         {
             get { return stk; }
@@ -63,6 +65,11 @@ namespace App_Ngan_hang
         {
             get { return password; }
             set { password = value; }
+        }
+        public int Mapin
+        {
+            get { return mapin; }
+            set { mapin = value; }
         }
 
     }
